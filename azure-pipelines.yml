@@ -15,6 +15,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '5.0'
 - task: SonarQubePrepare@5
   inputs:
     SonarQube: 'SQ 10.3'
