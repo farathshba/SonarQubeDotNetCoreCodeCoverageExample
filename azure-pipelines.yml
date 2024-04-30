@@ -18,7 +18,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '5.0'
+    version: '6.0.421'
 - task: SonarQubePrepare@5
   inputs:
     SonarQube: 'SQ 10.3'
