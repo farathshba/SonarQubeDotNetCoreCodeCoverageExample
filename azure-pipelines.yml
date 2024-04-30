@@ -15,10 +15,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: SonarCloudPrepare@1
+- task: SonarQubePrepare@5
   inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'seanke'
+    SonarQube: 'SQ 10.3'
     scannerMode: 'MSBuild'
     projectKey: 'seanke_SonarQubeDotNetCoreCodeCoverageExample'
     extraProperties: |
@@ -27,6 +26,7 @@ steps:
       # sonar.exclusions=**/*.bin
       sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)\**\*.trx
       sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)\**\*.coveragexml
+
 - task: NuGetToolInstaller@1
 - task: NuGetCommand@2
   inputs:
@@ -38,7 +38,9 @@ steps:
   inputs:
     command: 'test'
     arguments: '--collect "Code Coverage"'
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
+- task: SonarQubeAnalyze@5
+  inputs:
+    jdkversion: 'JAVA_HOME_17_X64'
+- task: SonarQubePublish@5
   inputs:
     pollingTimeoutSec: '300'
